@@ -175,6 +175,10 @@ header.hid{transform:translateY(-100%)}
 .gift .g-note{display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,.55);margin-top:5px;letter-spacing:.05em;line-height:1.6}
 .g-tag{position:absolute;top:8px;left:8px;z-index:2;font-size:10.5px;font-weight:700;letter-spacing:.08em;background:var(--accent);color:#fff;border-radius:99px;padding:4px 9px;line-height:1}
 .g-tag.ltd{background:rgba(255,255,255,.92);color:var(--ink)}
+.gift.sold-out{opacity:.85;border-color:rgba(255,255,255,.1)}
+.gift.sold-out img{filter:grayscale(1);opacity:.45}
+.g-tag.ended{background:rgba(255,255,255,.22);color:rgba(255,255,255,.82)}
+.gift .g-end{display:block;font-size:11px;font-weight:700;color:var(--accent);margin-top:6px;letter-spacing:.05em;line-height:1.6}
 .g-fine{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.04em;line-height:1.75;margin-bottom:22px}
 .launch-cta{display:inline-flex;align-items:center;gap:12px;font-family:var(--en);font-weight:700;font-size:14px;letter-spacing:.18em;text-transform:uppercase;background:var(--accent);color:#fff;padding:16px 38px;border-radius:10px;transition:.3s}
 .launch-bn:hover .launch-cta{background:#fff;color:var(--ink)}
@@ -772,7 +776,7 @@ footer .lockup{color:var(--paper);font-size:19px}
           <p class="g-lead">カヤック本体ご購入の方に、3つのおまけ特典。</p>
           <div class="gift-row">
             <figure class="gift"><span class="g-tag">もれなく</span><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/sheet_oru.jpg" alt="オリジナル カッティングシート" loading="lazy"><figcaption>オリジナル<br>カッティングシート<span class="g-note">カヤック本体ご購入の全員にプレゼント</span></figcaption></figure>
-            <figure class="gift"><span class="g-tag ltd">数量限定</span><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/oru_capr2.jpg" alt="オリジナル CAP" loading="lazy"><figcaption>オリジナル<br>CAP<span class="g-note">8/16（日）までのカヤック本体ご購入で</span></figcaption></figure>
+            <figure class="gift sold-out"><span class="g-tag ended">終了</span><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/oru_capr2.jpg" alt="オリジナル CAP" loading="lazy"><figcaption>オリジナル<br>CAP<span class="g-end">数量に達したため終了</span></figcaption></figure>
             <figure class="gift"><span class="g-tag ltd">数量限定</span><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/wpbackpack.jpg" alt="ORU 防水バックパック" loading="lazy"><figcaption>ORU<br>防水バックパック<span class="g-note">8/16（日）までのインレット以上のご購入で</span></figcaption></figure>
           </div>
           <p class="g-fine">※ CAP・防水バックパックは数量限定・なくなり次第終了。防水バックパックの対象モデルはインレット／インレット スポーツ／ビーチ／ビーチ スポーツ／ベイ／ヘイヴン／コースト。</p>
