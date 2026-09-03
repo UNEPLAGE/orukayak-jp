@@ -339,6 +339,37 @@ footer .lockup{color:var(--paper);font-size:19px}
 
 /* v39: legibility pass */
 </style>
+<style>
+/* ===== カラーバリエーション画像列 (PC:サムネイルhoverで大画像連動 / SP:矢印・スワイプでスライド) ===== */
+.cardwrap{position:relative;display:flex;flex-direction:column;height:100%}
+.cardwrap>.card{flex:1 1 auto;height:100%}
+.cw-track{position:absolute;inset:0;display:flex;width:100%;height:100%;transform:translateX(0);transition:transform .45s cubic-bezier(.22,1,.36,1);z-index:2}
+.cw-slide{position:relative;flex:0 0 100%;width:100%;height:100%}
+.cw-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cardwrap .ph .p2{display:none}
+.cw{position:absolute;left:0;top:0;width:100%;aspect-ratio:1/1;display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:12px;box-sizing:border-box;opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:6}
+.cw::before{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(to top,rgba(255,255,255,.93),rgba(255,255,255,0));z-index:-1;pointer-events:none}
+.cw-i{flex:0 0 auto;width:60px;height:60px;border-radius:9px;overflow:hidden;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.16);border:2px solid #fff;position:relative;pointer-events:none;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.cw-i img{width:100%;height:100%;object-fit:cover;display:block}
+.cw-i .cw-n{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);white-space:nowrap;background:var(--ink);color:#fff;font-size:11px;letter-spacing:.05em;padding:3px 8px;border-radius:5px;opacity:0;transition:opacity .2s;pointer-events:none}
+.cw-i.oos img{opacity:.55}
+.cw-i.on{border-color:var(--accent)}
+.cardwrap:hover .cw{opacity:1}
+.cardwrap:hover .cw-i{pointer-events:auto}
+.cw-i:hover{transform:translateY(-3px);box-shadow:0 7px 16px rgba(0,0,0,.26)}
+.cw-i:hover .cw-n{opacity:1}
+.cw-arrows{position:absolute;left:0;top:0;width:100%;aspect-ratio:1/1;pointer-events:none;z-index:6;display:none}
+.cw-arrows button{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.86);box-shadow:0 2px 8px rgba(0,0,0,.2);color:var(--ink);font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center;pointer-events:auto;cursor:pointer;padding:0}
+.cw-arrows .cwx-prev{left:9px}
+.cw-arrows .cwx-next{right:9px}
+.cw-dots{position:absolute;left:0;right:0;bottom:9px;display:flex;justify-content:center;gap:6px;pointer-events:none}
+.cw-dots i{width:6px;height:6px;border-radius:50%;background:rgba(17,17,17,.3)}
+.cw-dots i.on{background:var(--accent)}
+@media(max-width:900px){
+  .cw{display:none}
+  .cw-arrows{display:block}
+}
+</style>
 </head>
 <body>
 <svg class="ico-sprite" aria-hidden="true" focusable="false"><defs>
@@ -1003,6 +1034,80 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='Es
     });
   }
   if(document.readyState!=='loading') dec(); else document.addEventListener('DOMContentLoaded', dec);
+})();
+</script>
+<script>
+/* カラーバリエーション: コレクションproducts.jsonから各色の画像を取得し、複数カラーの商品カードの
+   大きな商品画像を「カラー画像のスライダー」に変換。
+   PC=下部サムネイルにホバーで大画像が該当カラーへスライド連動（クリックでその色のShopifyページ）。
+   SP=左右の矢印/横スワイプでスライド切替。Shopify側の色/画像が変われば自動反映。 */
+(function(){
+  function imgFor(p,v){
+    if(v.featured_image&&v.featured_image.src) return v.featured_image.src;
+    var imgs=p.images||[];
+    for(var i=0;i<imgs.length;i++){ if((imgs[i].variant_ids||[]).indexOf(v.id)>=0) return imgs[i].src; }
+    return (imgs[0]&&imgs[0].src)||'';
+  }
+  function mk(tag,cls){var e=document.createElement(tag);if(cls)e.className=cls;return e;}
+  function build(by){
+    document.querySelectorAll('a[href*="store.upioutdoor.com/products/"]').forEach(function(a){
+      var ph=a.querySelector('.ph'); if(!ph) return;
+      if(a.parentNode&&a.parentNode.classList&&a.parentNode.classList.contains('cardwrap')) return;
+      var m=(a.getAttribute('href')||'').match(/\/products\/([a-z0-9-]+)/); if(!m) return;
+      var p=by[m[1]]; if(!p) return;
+      var colorOpt=(p.options||[]).filter(function(o){return /色|color|カラー/i.test(o.name);})[0];
+      if(!colorOpt || (colorOpt.values||[]).length<2) return;
+      var seen={}, list=[];
+      (p.variants||[]).forEach(function(v){
+        var color=v.option1||v.title; if(!color||seen[color])return;
+        var src=imgFor(p,v); if(!src)return; seen[color]=1;
+        list.push({color:color,src:src,id:v.id,avail:v.available!==false});
+      });
+      if(list.length<2) return;
+      var enName=(p.title||'').split(' / ')[0];
+      var wrap=mk('div','cardwrap'); a.parentNode.insertBefore(wrap,a); wrap.appendChild(a);
+      var track=mk('div','cw-track');
+      list.forEach(function(c){ var s=mk('div','cw-slide'); var im=mk('img'); im.src=c.src; im.alt=enName+' '+c.color; im.loading='lazy'; s.appendChild(im); track.appendChild(s); });
+      ph.appendChild(track);
+      var strip=mk('div','cw'); strip.setAttribute('aria-label','カラーバリエーション');
+      var arrows=mk('div','cw-arrows');
+      var bp=mk('button','cwx-prev'); bp.type='button'; bp.setAttribute('aria-label','前のカラー'); bp.innerHTML='‹';
+      var bn=mk('button','cwx-next'); bn.type='button'; bn.setAttribute('aria-label','次のカラー'); bn.innerHTML='›';
+      var dots=mk('div','cw-dots');
+      var swi=[], doti=[];
+      list.forEach(function(c,i){
+        var t=mk('a','cw-i'+(c.avail?'':' oos'));
+        t.href='https://store.upioutdoor.com/products/'+p.handle+'?variant='+c.id;
+        t.setAttribute('aria-label',enName+' '+c.color);
+        var im=mk('img'); im.src=c.src; im.loading='lazy'; im.alt=enName+' '+c.color;
+        var nm=mk('span','cw-n'); nm.textContent=c.color;
+        t.appendChild(im); t.appendChild(nm); strip.appendChild(t); swi.push(t);
+        var d=mk('i'); dots.appendChild(d); doti.push(d);
+      });
+      arrows.appendChild(bp); arrows.appendChild(bn); arrows.appendChild(dots);
+      wrap.appendChild(strip); wrap.appendChild(arrows);
+      var idx=0, n=list.length;
+      function set(i){ idx=(i%n+n)%n; track.style.transform='translateX('+(-idx*100)+'%)';
+        for(var k=0;k<n;k++){ swi[k].classList.toggle('on',k===idx); doti[k].classList.toggle('on',k===idx); } }
+      set(0);
+      swi.forEach(function(t,i){ t.addEventListener('mouseenter',function(){ set(i); }); });
+      wrap.addEventListener('mouseleave',function(){ set(0); });
+      bp.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); set(idx-1); });
+      bn.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); set(idx+1); });
+      var x0=null,y0=null,moved=false;
+      ph.addEventListener('touchstart',function(e){ var tt=e.touches[0]; x0=tt.clientX; y0=tt.clientY; moved=false; },{passive:true});
+      ph.addEventListener('touchmove',function(e){ if(x0==null)return; var tt=e.touches[0]; var dx=tt.clientX-x0, dy=tt.clientY-y0;
+        if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>8){ moved=true; if(e.cancelable)e.preventDefault(); } },{passive:false});
+      ph.addEventListener('touchend',function(e){ if(x0==null)return; var tt=(e.changedTouches&&e.changedTouches[0]); if(tt&&moved){ var dx=tt.clientX-x0; if(Math.abs(dx)>36){ set(idx+(dx<0?1:-1)); } } x0=null; },{passive:true});
+      a.addEventListener('click',function(e){ if(moved){ e.preventDefault(); moved=false; } });
+    });
+  }
+  var ac=('AbortController' in window)?new AbortController():null;
+  var t=ac?setTimeout(function(){ac.abort();},5000):null;
+  fetch('https://store.upioutdoor.com/collections/oru-kayak/products.json?limit=250',ac?{signal:ac.signal}:{})
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(d){ if(t)clearTimeout(t); var by={}; (d.products||[]).forEach(function(p){by[p.handle]=p;}); build(by); })
+    .catch(function(){});
 })();
 </script>
 </body>
