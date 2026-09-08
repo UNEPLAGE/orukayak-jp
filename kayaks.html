@@ -756,14 +756,14 @@ footer .lockup{color:var(--paper);font-size:19px}
       </a>
       <a class="acc-card rv" href="https://store.upioutdoor.com/products/oru-kayak-pack">
         <div class="ac-ph"><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/1OPK101-GRE-00OruPackwebe.jpg" alt="ORU KAYAK Pack" loading="lazy"></div>
-        <div class="ac-en">Pack</div>
-        <div class="ac-jp">キャリーパック</div>
+        <div class="ac-en">Pack (Beach・Coast・Bay)</div>
+        <div class="ac-jp">ビーチ・コースト・ベイ用パック</div>
         <div class="ac-price">&yen;39,930</div>
       </a>
       <a class="acc-card rv" href="https://store.upioutdoor.com/products/oru-kayak-pack-for-lake">
         <div class="ac-ph"><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/17299700011inletpackside.jpg" alt="ORU KAYAK Pack for Lake" loading="lazy"></div>
-        <div class="ac-en">Pack for Lake</div>
-        <div class="ac-jp">レイク用パック</div>
+        <div class="ac-en">Pack (Lake・Inlet)</div>
+        <div class="ac-jp">レイク・インレット用パック</div>
         <div class="ac-price">&yen;39,930</div>
       </a>
       <a class="acc-card rv" href="https://store.upioutdoor.com/products/oru-kayak-waterproof-backpack">
@@ -774,8 +774,8 @@ footer .lockup{color:var(--paper);font-size:19px}
       </a>
       <a class="acc-card rv" href="https://store.upioutdoor.com/products/oru-kayak-float-bags-lake">
         <div class="ac-ph"><img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/Oru_FBFL.jpg" alt="ORU KAYAK Float Bags for Lake" loading="lazy"></div>
-        <div class="ac-en">Float Bags for Lake</div>
-        <div class="ac-jp">レイク用フロートバッグ</div>
+        <div class="ac-en">Float Bags (All Models)</div>
+        <div class="ac-jp">フロートバッグ（全モデル対応）</div>
         <div class="ac-price">&yen;13,420</div>
       </a>
       <a class="acc-card rv" href="https://store.upioutdoor.com/products/oru-kayak-splash-deck-lake">
@@ -1059,6 +1059,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='Es
       var ph=a.querySelector('.ph'); if(!ph) return;
       if(a.parentNode&&a.parentNode.classList&&a.parentNode.classList.contains('cardwrap')) return;
       var m=(a.getAttribute('href')||'').match(/\/products\/([a-z0-9-]+)/); if(!m) return;
+      /* 除外: スターターセットはカラーバリエーション表示なし(PCのサムネイル連動・SPのスライド/矢印とも生成しない)。
+         個別に外したいカードは <a class="card" data-nocw ...> を付ければ同様にスキップされる。 */
+      if(/-starter-set$/.test(m[1]) || a.hasAttribute('data-nocw')) return;
       var p=by[m[1]]; if(!p) return;
       var colorOpt=(p.options||[]).filter(function(o){return /色|color|カラー/i.test(o.name);})[0];
       if(!colorOpt || (colorOpt.values||[]).length<2) return;

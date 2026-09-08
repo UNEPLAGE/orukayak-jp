@@ -1407,6 +1407,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='Es
       var ph=a.querySelector('.ph'); if(!ph) return;
       if(a.parentNode&&a.parentNode.classList&&a.parentNode.classList.contains('cardwrap')) return;
       var m=(a.getAttribute('href')||'').match(/\/products\/([a-z0-9-]+)/); if(!m) return;
+      /* 除外: スターターセットはカラーバリエーション表示なし(PCのサムネイル連動・SPのスライド/矢印とも生成しない)。
+         個別に外したいカードは <a class="card" data-nocw ...> を付ければ同様にスキップされる。 */
+      if(/-starter-set$/.test(m[1]) || a.hasAttribute('data-nocw')) return;
       var p=by[m[1]]; if(!p) return;
       var colorOpt=(p.options||[]).filter(function(o){return /色|color|カラー/i.test(o.name);})[0];
       if(!colorOpt || (colorOpt.values||[]).length<2) return;
