@@ -436,6 +436,19 @@ footer .lockup{color:var(--paper);font-size:19px}
 .spec-bar .sb-note{display:block;font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--gray);margin-top:5px;transition:color .3s}
 .spec-bar:hover .sb-note{color:rgba(255,255,255,.72)}
 .spec-bar .sb-ar{font-family:var(--en);font-size:17px;flex:none}
+/* ===== 安全注意喚起バー(Guide見出し直下 → /safety へ) ===== */
+.safety-note{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%;margin:30px 0 46px;padding:26px 34px;border:1px solid var(--accent);border-radius:10px;background:#FDF6F2;color:var(--ink);font-family:var(--jp);text-align:left;transition:background .3s,color .3s,border-color .3s}
+.safety-note:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.safety-note .sn-l{display:flex;align-items:center;gap:26px;min-width:0}
+.safety-note .sn-ic{flex:none;display:flex}
+.safety-note .sn-ic svg{width:34px;height:34px;stroke:var(--accent);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s}
+.safety-note:hover .sn-ic svg{stroke:#fff}
+.safety-note .sn-en{display:block;font-family:var(--en);font-weight:700;font-size:12.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);transition:color .3s}
+.safety-note:hover .sn-en{color:#fff}
+.safety-note .sn-jp{display:block;font-size:17px;font-weight:700;letter-spacing:.12em;margin-top:6px}
+.safety-note .sn-note{display:block;font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--gray);margin-top:5px;transition:color .3s}
+.safety-note:hover .sn-note{color:rgba(255,255,255,.72)}
+.safety-note .sn-ar{font-family:var(--en);font-size:17px;flex:none}
 .sp-ov{position:fixed;inset:0;background:rgba(17,17,17,.74);z-index:320;display:none;align-items:center;justify-content:center;padding:24px}
 .sp-ov.open{display:flex}
 .sp-modal{background:#fff;width:min(1240px,100%);max-height:88vh;display:flex;flex-direction:column;position:relative}
@@ -473,6 +486,9 @@ footer .lockup{color:var(--paper);font-size:19px}
   .spec-bar{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 22px;margin-top:34px}
   .spec-bar .sb-l{flex-direction:column;align-items:flex-start;gap:12px}
   .spec-bar .sb-ar{align-self:flex-end;margin-top:-30px}
+  .safety-note{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 22px;margin:24px 0 36px}
+  .safety-note .sn-l{flex-direction:column;align-items:flex-start;gap:12px}
+  .safety-note .sn-ar{align-self:flex-end;margin-top:-30px}
   .sp-ov{padding:0}
   .sp-modal{max-height:100vh;height:100%;width:100%}
   .sp-head{padding:22px 20px 16px}
@@ -647,6 +663,7 @@ footer .lockup{color:var(--paper);font-size:19px}
     <ul class="menu" aria-label="メインナビゲーション">
       <li><a class="nav-lineup" href="/kayaks">Lineup<span class="jp">ラインナップ</span></a></li>
       <li><a href="#guide">Guide<span class="jp">初めての方へ</span></a></li>
+      <li><a href="/safety">Safety<span class="jp">安全に楽しむために</span></a></li>
       <li><a href="#news">News &amp; Stories<span class="jp">最新情報＆ストーリー</span></a></li>
       <li><a href="/about">About<span class="jp">ブランドについて</span></a></li>
       <li><a href="https://upioutdoor.com/store/store-by-brand/oru-kayak/">Dealers<span class="jp">取扱店</span></a></li>
@@ -662,6 +679,7 @@ footer .lockup{color:var(--paper);font-size:19px}
   <button class="m-close" onclick="document.querySelector('.m-menu').classList.remove('open')">&times;</button>
   <a class="nav-lineup" href="/kayaks">Lineup<small>ラインナップ</small></a>
   <a href="#guide" onclick="closeMenu()">Guide<small>初めての方へ</small></a>
+  <a href="/safety" onclick="closeMenu()">Safety<small>安全に楽しむために</small></a>
   <a href="#news" onclick="closeMenu()">News &amp; Stories<small>最新情報＆ストーリー</small></a>
   <a href="/about">About<small>ブランドについて</small></a>
   <a href="https://upioutdoor.com/store/store-by-brand/oru-kayak/">Dealers<small>取扱店</small></a>
@@ -843,6 +861,18 @@ footer .lockup{color:var(--paper);font-size:19px}
 <section class="guide" id="guide">
   <div class="wrap">
     <div class="sec-head rv"><h2 class="en-title">Guide</h2><div class="jp-title">はじめての方へ</div></div>
+
+    <a class="safety-note rv" href="/safety">
+      <span class="sn-l">
+        <span class="sn-ic"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 5.5 37 34.5H3z"/><path d="M20 16v8.5"/><path d="M20 29.2v.1"/></svg></span>
+        <span>
+          <span class="sn-en">Before You Paddle</span>
+          <span class="sn-jp">漕ぎ出す前に、安全のこと。</span>
+          <span class="sn-note">ライフジャケットの着用、気象・海象の確認、セルフレスキュー。事故を防ぐための基本と、見ておきたい動画をまとめました。</span>
+        </span>
+      </span>
+      <span class="sn-ar">&rarr;</span>
+    </a>
     <div class="guide-grid">
       <div>
         <p class="sec-lead rv">オルカヤックは、クルマがなくても、艇庫がなくても、はじめられるカヤックです。3つのステップで、水の上へ。</p>
