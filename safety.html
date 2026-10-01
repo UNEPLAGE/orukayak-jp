@@ -117,6 +117,26 @@ header.hid{transform:translateY(-100%)}
 .rule p{font-size:14.5px;font-weight:500;line-height:2.1;color:#55524B}
 .rule .ico{width:34px;height:34px;margin-bottom:18px;stroke:var(--ink);stroke-width:1.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
+/* ===== SAFETY: セルフレスキュー装備 ===== */
+.sf-gear{padding:0 0 110px}
+.sf-gear .lead{max-width:760px;margin:-34px auto 52px;text-align:center;font-size:15px;font-weight:500;line-height:2.2;color:#55524B}
+.gear-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px 24px}
+.gear-card{display:flex;flex-direction:column;transition:.3s}
+.gear-card .g-ph{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:8px;background:var(--paper-deep);margin-bottom:16px}
+.gear-card .g-ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.gear-card:hover .g-ph img{transform:scale(1.05)}
+.gear-card .g-no{position:absolute;left:12px;top:12px;font-family:var(--en);font-weight:700;font-size:11px;letter-spacing:.2em;color:#fff;background:var(--accent);border-radius:999px;padding:3px 11px}
+.gear-card .g-soldout{position:absolute;right:12px;top:12px;font-size:11px;font-weight:700;letter-spacing:.12em;color:#fff;background:rgba(17,17,17,.78);border-radius:999px;padding:3px 11px;display:none}
+.gear-card.is-soldout .g-soldout{display:block}
+.gear-card .g-en{font-family:var(--en);font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray)}
+.gear-card .g-jp{font-size:16px;font-weight:700;letter-spacing:.08em;margin:4px 0 8px}
+.gear-card .g-desc{font-size:13.5px;font-weight:500;line-height:2;color:#55524B;flex:1 1 auto}
+.gear-card .g-price{font-size:14.5px;font-weight:700;letter-spacing:.04em;margin-top:12px}
+.gear-card .g-price small{font-size:11.5px;font-weight:500;color:var(--gray);margin-left:5px}
+.gear-card .g-buy{font-family:var(--en);font-weight:700;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:10px}
+.gear-card:hover .g-buy{text-decoration:underline;text-underline-offset:3px}
+.sf-gear .foot{margin-top:52px;text-align:center}
+
 /* ===== SAFETY: emergency callout ===== */
 .sf-call{background:var(--ink);color:var(--paper);padding:56px 0}
 .sf-call .inner{display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap;text-align:center}
@@ -192,6 +212,7 @@ footer .lockup{color:var(--paper);font-size:19px}
   .menu{display:none}
   .rule-grid{grid-template-columns:repeat(2,1fr)}
   .vid-grid{gap:44px 32px}
+  .gear-grid{grid-template-columns:repeat(2,1fr);gap:34px 24px}
   .vid.wide{grid-template-columns:1fr;gap:0}
   .vid.wide .v-no{margin-top:20px}
 }
@@ -206,6 +227,13 @@ footer .lockup{color:var(--paper);font-size:19px}
   .rule-grid{grid-template-columns:1fr}
   .rule{padding:32px 26px}
   .sf-vids,.sf-links{padding:72px 0}
+  .sf-gear{padding:0 0 72px}
+  .sf-gear .lead{margin:-18px 0 34px;text-align:left}
+  .gear-grid{grid-template-columns:repeat(2,1fr);gap:26px 16px}
+  .gear-card .g-jp{font-size:15px}
+  .gear-card .g-desc{font-size:13px}
+  .sf-gear .foot{margin-top:36px}
+  .sf-gear .foot .btn{width:100%;max-width:340px}
   .cc-note{margin:-8px 0 44px;padding:22px 20px}
   .credit.center{margin-top:26px;text-align:left}
   .vid-grid{grid-template-columns:1fr;gap:48px}
@@ -321,6 +349,65 @@ footer .lockup{color:var(--paper);font-size:19px}
 
     </div>
     <p class="credit center rv">参考：海上保安庁「<a href="https://www6.kaiho.mlit.go.jp/watersafety/canoe/" target="_blank" rel="noopener">ウォーターセーフティガイド — カヌーの安全情報</a>」</p>
+  </div>
+</section>
+
+<section class="sf-gear">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 class="en-title">Gear</h2>
+      <div class="jp-title">セルフレスキューのための装備</div>
+    </div>
+    <p class="lead rv">落水は「起きないこと」ではなく「起きたときに戻れるか」です。ひとりで艇に戻り、水を抜いて、漕ぎ続けるための4点。ORU KAYAK純正アクセサリーとしてUPIオンラインストアでお求めいただけます。</p>
+    <div class="gear-grid">
+      <a class="gear-card rv" href="https://store.upioutdoor.com/products/oru-kayak-paddle-float">
+        <div class="g-ph">
+          <span class="g-no">01</span><span class="g-soldout">在庫切れ</span>
+          <img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/1_27d9792c-257d-40f3-9998-13671c6e6100.jpg" alt="ORU KAYAK Paddle Float" loading="lazy">
+        </div>
+        <div class="g-en">Paddle Float</div>
+        <div class="g-jp">パドルフロート</div>
+        <p class="g-desc">転覆したあと、パドルを浮力体に変えてアウトリガーにする道具。再乗艇をひとりで成立させる、セルフレスキューの中心です。</p>
+        <div class="g-price">&yen;9,900<small>税込</small></div>
+        <span class="g-buy">Buy on Store &rarr;</span>
+      </a>
+      <a class="gear-card rv" href="https://store.upioutdoor.com/products/oru-kayak-paddle-leash">
+        <div class="g-ph">
+          <span class="g-no">02</span><span class="g-soldout">在庫切れ</span>
+          <img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/3_75b5642e-aaae-487e-9771-b81a62d466b6.jpg" alt="ORU KAYAK Paddle Leash" loading="lazy">
+        </div>
+        <div class="g-en">Paddle Leash</div>
+        <div class="g-jp">パドルリーシュ</div>
+        <p class="g-desc">落水の瞬間、パドルは驚くほど速く流されます。艇とつないでおけば、両手を離しても失いません。</p>
+        <div class="g-price">&yen;2,970<small>税込</small></div>
+        <span class="g-buy">Buy on Store &rarr;</span>
+      </a>
+      <a class="gear-card rv" href="https://store.upioutdoor.com/products/oru-kayak-bilge-pump">
+        <div class="g-ph">
+          <span class="g-no">03</span><span class="g-soldout">在庫切れ</span>
+          <img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/1_aab7fdb4-72e5-4f94-ac25-364348fda5f6.jpg" alt="ORU KAYAK Bilge Pump" loading="lazy">
+        </div>
+        <div class="g-en">Bilge Pump</div>
+        <div class="g-jp">ビルジポンプ</div>
+        <p class="g-desc">艇内に入った水を素早く排出するための手動ポンプ。再乗艇したあと、最初にやることがこれです。</p>
+        <div class="g-price">&yen;6,490<small>税込</small></div>
+        <span class="g-buy">Buy on Store &rarr;</span>
+      </a>
+      <a class="gear-card rv" href="https://store.upioutdoor.com/products/oru-kayak-bilge-sponge">
+        <div class="g-ph">
+          <span class="g-no">04</span><span class="g-soldout">在庫切れ</span>
+          <img src="https://cdn.shopify.com/s/files/1/0530/1482/3108/files/2_9eb9b4f9-0f00-49f6-8f5d-38e38e51eba9.jpg" alt="ORU KAYAK Bilge Sponge" loading="lazy">
+        </div>
+        <div class="g-en">Bilge Sponge</div>
+        <div class="g-jp">ビルジスポンジ</div>
+        <p class="g-desc">ポンプで取りきれない足元の水を吸い取ります。体温を奪われないために、最後のひと拭きまで。</p>
+        <div class="g-price">&yen;2,970<small>税込</small></div>
+        <span class="g-buy">Buy on Store &rarr;</span>
+      </a>
+    </div>
+    <div class="foot rv">
+      <a class="btn" href="/kayaks#accessories">View All Accessories</a>
+    </div>
   </div>
 </section>
 
@@ -491,6 +578,23 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
     });
   }
   if(document.readyState!=='loading') dec(); else document.addEventListener('DOMContentLoaded', dec);
+})();
+</script>
+<script>
+/* セルフレスキュー装備: Shopify商品ページ(.js)から価格・在庫を自動反映。
+   取得に失敗した場合はHTMLに書かれた価格(スナップショット)のまま表示する。 */
+(function(){
+  var S='https://store.upioutdoor.com/products/';
+  function yen(n){ return '\u00a5' + Math.round(n/100).toLocaleString('ja-JP'); }
+  document.querySelectorAll('.gear-card').forEach(function(a){
+    var m=(a.getAttribute('href')||'').match(/\/products\/([a-z0-9-]+)/); if(!m) return;
+    fetch(S+m[1]+'.js',{credentials:'omit'}).then(function(r){return r.ok?r.json():null;}).then(function(p){
+      if(!p) return;
+      var el=a.querySelector('.g-price');
+      if(el && typeof p.price==='number'){ el.innerHTML=yen(p.price)+'<small>税込</small>'; }
+      if(p.available===false){ a.classList.add('is-soldout'); }
+    }).catch(function(){});
+  });
 })();
 </script>
 </body>
