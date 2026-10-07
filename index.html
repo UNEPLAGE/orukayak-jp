@@ -551,8 +551,8 @@ footer .lockup{color:var(--paper);font-size:19px}
   .hero h1{font-size:20px;letter-spacing:.1em;line-height:1.6;margin-bottom:9px}
   .hero .sub{font-size:10.5px;letter-spacing:.18em;margin-bottom:18px}
   .hero-dots{bottom:12px}
-      .hero .cta-row{width:100%;flex-direction:column;align-items:center;gap:12px;padding:0 24px}
-  .hero .btn{width:100%;max-width:340px}
+      .hero .cta-row{display:none} /* SPではHeroのボタンを表示しない(PCは従来どおり) */
+  .hero .sub{margin-bottom:0}
   .stats .row{grid-template-columns:repeat(2,1fr);min-height:0}
   .stat:nth-child(3){border-left:none}
   .stat{border-top:1px solid rgba(17,17,17,.09);padding:30px 12px}
@@ -611,7 +611,7 @@ footer .lockup{color:var(--paper);font-size:19px}
   .hero-logo{width:min(190px,56%);margin-bottom:11px}
   .hero-kana{font-size:10.5px;line-height:1.8;margin-bottom:9px}
   .hero h1{font-size:19px;line-height:1.56;margin-bottom:8px}
-  .hero .sub{font-size:9.5px;letter-spacing:.14em;margin-bottom:15px}
+  .hero .sub{font-size:9.5px;letter-spacing:.14em;margin-bottom:0}
   .hero-dots{bottom:11px}
 }
 /* mobile menu */
