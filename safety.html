@@ -570,7 +570,7 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 <script>
 /* orukayak.jp → UPIオンラインストア 流入計測: ストア宛リンクにUTMを自動付与(Shopify分析で参照元を識別) */
 (function(){
-  var P='utm_source=orukayak.jp&utm_medium=referral&utm_campaign=orukayak_official';
+  var P='utm_source=orukayak.jp&utm_medium=referral&utm_campaign=brand_site';
   function dec(){
     document.querySelectorAll('a[href*="store.upioutdoor.com"]').forEach(function(a){
       var h=a.getAttribute('href'); if(!h||/[?&]utm_source=/.test(h)) return;
