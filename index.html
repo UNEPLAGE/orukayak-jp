@@ -1108,7 +1108,9 @@ heroPlan();
 /* ===== stats band video (2 loops on enter) ===== */
 (function(){
   var v=document.getElementById('statsVid');if(!v)return;
-  var LOOPS=2, n=0, armed=true;
+  var LOOPS=2, n=0, armed=true, RATE=0.5;
+  function rate(){try{v.defaultPlaybackRate=RATE;v.playbackRate=RATE}catch(e){}}
+  rate();v.addEventListener('loadedmetadata',rate);v.addEventListener('play',rate);
   try{if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');return}}catch(e){}
   v.addEventListener('ended',function(){n++;if(n<LOOPS){try{v.currentTime=0;v.play()}catch(e){}}});
   function run(){n=0;try{v.currentTime=0;v.play()}catch(e){}}
